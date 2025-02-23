@@ -20,8 +20,11 @@ configurations {
 }
 
 repositories {
-	mavenCentral()
+	mavenCentral()  // ✅ 기본 저장소 (Twilio도 포함됨)
+	maven { url "https://repo1.maven.org/maven2" }  // ✅ 추가 저장소
 }
+
+
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -33,14 +36,19 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	// JWT (JSON Web Token)
-	implementation 'io.jsonwebtoken:jjwt:0.11.5'
-	// Twilio API
-	implementation 'com.twilio.sdk:twilio:9.4.1'
-	// Spring WebClient (REST API 호출)
+
+	// ✅ 최신 JWT 라이브러리 버전 (0.11.5에서 최신 버전으로 변경)
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.0'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.12.0'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.0'  // JSON 파싱을 위한 모듈 추가
+
+	// Twilio (SMS API) - 최신 버전 (9.4.2)으로 변경
+	implementation 'com.twilio.sdk:twilio:9.8.0'  // 최신 안정 버전
+
+	// ✅ REST API 호출을 위한 WebClient
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	//Twilio & 카카오톡 API 키 설정 필요!
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()
